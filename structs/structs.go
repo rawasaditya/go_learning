@@ -2,43 +2,37 @@ package main
 
 import (
 	"fmt"
-	"time"
-)
 
-type user struct {
-	firstName string
-	lastName  string
-	birthDate string
-	createAt  time.Time
-}
+	"example.com/structs/user" // Adjust the import path according to your project structure
+)
 
 func main() {
 	//  Assligning values to the struct fields directly
-	// var appUser = user{
-	// 	firstName: getUserData("Please enter your first name: "),
-	// 	lastName:  getUserData("Please enter your last name: "),
-	// 	birthDate: getUserData("Please enter your birth date (YYYY-MM-DD): "),
-	// 	createAt:  time.Now(),
-	// }
-
+	var appUser1 = user.User{
+		FirstName: getUserData("Please enter your first name: "),
+		LastName:  getUserData("Please enter your last name: "),
+		BirthDate: getUserData("Please enter your birth date (YYYY-MM-DD): "),
+	}
+	fmt.Println(appUser1)
 	// Assigning values in order of declaration
-	var appUser = user{
-		getUserData("Please enter your first name: "),
-		getUserData("Please enter your last name: "),
-		getUserData("Please enter your birth date (YYYY-MM-DD): "),
-		time.Now(),
+	var appUser, err = user.NewUser()
+	if err != nil {
+		panic(err)
 	}
 
 	// Empty struct
 	// var emptyUser = user{}
 	// fmt.Println("Empty User:", emptyUser)
+	appUser.OutputUserData()
+	appUser.ClearUserName()
+	appUser.OutputUserData()
 
-	outputUserData(&appUser)
+	var appAdmin, adminErr = user.NewAdmin()
+	if adminErr != nil {
+		panic(adminErr)
+	}
+	appAdmin.OutputUserData()
 
-}
-
-func outputUserData(userValues *user) {
-	fmt.Printf("First Name: %s\nLast Name: %s\nBirth Date: %s\n", userValues.firstName, userValues.lastName, userValues.birthDate)
 }
 
 func getUserData(prompt string) string {

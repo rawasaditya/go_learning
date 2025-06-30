@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main1() {
+func main() {
 	//  Add comments to explain the code
 	// Declare an integer variable a and assign it a value of 42
 	var a int = 42 // This is an integer variable
